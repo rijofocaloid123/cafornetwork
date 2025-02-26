@@ -1,4 +1,4 @@
-name: Deploy Infrastructure and Application
+name: Configure Server and Deploy Docker Container
 
 on:
   push:
@@ -14,15 +14,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Deploy Infrastructure using Terraform
-e
-
-      # Step 3: Configure Server using Ansible
+      # Step 2: Configure Server using Ansible
       - name: Configure Server with Ansible
         run: |
           ansible-playbook -i 172.174.72.168, playbook.yml -u azureuser --extra-vars "ansible_ssh_pass=Password1234!"
 
-      # Step 4: Build and Deploy Docker Container
+      # Step 3: Build and Deploy Docker Container
       - name: Build and Deploy Docker Container
         run: |
           docker build -t myapp .
