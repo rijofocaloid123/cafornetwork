@@ -1,20 +1,29 @@
-trigger:
-  - main
+name: Deploy Infrastructure and Application
 
-pool:
-  vmImage: 'ubuntu-latest'
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the main branch
 
-steps:
-  - script: |
-      terraform init
-      terraform apply -auto-approve
-    displayName: 'Deploy Infrastructure'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
 
-  - script: |
-      ansible-playbook -i 172.174.72.168, playbook.yml -u azureuser --extra-vars "ansible_ssh_pass=Password1234!"
-    displayName: 'Configure Server'
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  - script: |
-      docker build -t myapp .
-      docker run -d -p 80:80 myapp
-    displayName: 'Deploy Docker Container'
+      # Step 2: Deploy Infrastructure using Terraform
+e
+
+      # Step 3: Configure Server using Ansible
+      - name: Configure Server with Ansible
+        run: |
+          ansible-playbook -i 172.174.72.168, playbook.yml -u azureuser --extra-vars "ansible_ssh_pass=Password1234!"
+
+      # Step 4: Build and Deploy Docker Container
+      - name: Build and Deploy Docker Container
+        run: |
+          docker build -t myapp .
+          docker run -d -p 80:80 myapp
